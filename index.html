@@ -1032,10 +1032,12 @@
         font-size: 0.7rem;
       }
 
-      /* 内容居中会让溢出上下各分一半（实测 -35/+705），
-         小屏改为从顶部开始排，避免标题被顶出屏幕外。 */
+      /* 用 safe center 而不是 flex-start：
+         - 内容放得下时 → 居中（原来是顶部对齐，下面留一大片空白）
+         - 内容放不下时 → 自动退回顶部对齐，标题不会被顶出屏幕外。
+         之前一刀切改成 flex-start，把「居中」也一起弄丢了。 */
       .slide-content {
-        justify-content: flex-start;
+        justify-content: safe center;
       }
 
       .fde-title {
@@ -2364,7 +2366,7 @@
        把次要区块隐藏，只留标题、指标和要点，保证不被裁切。 */
     @media (max-height: 460px) and (orientation: landscape) {
       .slide-content {
-        justify-content: flex-start;
+        justify-content: safe center;
       }
 
       .project-visual,
