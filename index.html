@@ -1275,6 +1275,52 @@
       overflow: hidden;
     }
 
+    /* --- MASCOT (IP 形象) --- */
+    .mascot {
+      display: block;
+      height: auto;
+      object-fit: contain;
+      pointer-events: none;
+      user-select: none;
+      -webkit-user-drag: none;
+      filter: drop-shadow(0 18px 36px rgba(0, 0, 0, 0.35));
+    }
+
+    /* 封面：站在蓝色斜切面板里，PM 字样的位置 */
+    .mascot-cover {
+      width: auto;
+      max-width: min(100%, 42vh);
+      max-height: 56vh;
+      margin-bottom: clamp(0.6rem, 2vw, 1.4rem);
+      animation: mascot-in 0.9s var(--ease-out-expo) both;
+    }
+
+    /* 尾页：站在 Thank You 上方 */
+    .mascot-thanks {
+      width: auto;
+      max-width: min(70%, 44vh);
+      max-height: 44vh;
+      margin-bottom: clamp(0.4rem, 1.5vw, 1rem);
+      position: relative;
+      z-index: 2;
+      animation: mascot-wave 3.2s ease-in-out infinite;
+    }
+
+    @keyframes mascot-in {
+      from { opacity: 0; transform: translateY(24px) scale(0.94); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* 轻微的挥手/呼吸感，幅度很小，避免喧宾夺主 */
+    @keyframes mascot-wave {
+      0%, 100% { transform: rotate(0deg) translateY(0); }
+      50%      { transform: rotate(1.5deg) translateY(-8px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .mascot-cover, .mascot-thanks { animation: none; }
+    }
+
     .slide-closing::before {
       content: '';
       position: absolute;
@@ -2044,7 +2090,11 @@
       </div>
     </div>
     <div class="title-right">
-      <div class="big-label reveal-scale">PM</div>
+      <picture>
+        <source srcset="assets/mascot-cover.webp" type="image/webp">
+        <img class="mascot mascot-cover" src="assets/mascot-cover.png"
+             alt="橙色肌肉猫吉祥物，正在展示手臂肌肉" width="889" height="900">
+      </picture>
       <div class="sub-label reveal"><i class="fa-solid fa-briefcase"></i> <span data-i18n="subRole">Forward Deployed Product Manager</span></div>
     </div>
     <div class="accent-bar"></div>
@@ -2446,6 +2496,11 @@
        SLIDE 12: CLOSING
        =========================================== -->
   <section class="slide slide-closing" data-slide="11">
+    <picture>
+      <source srcset="assets/mascot-thanks.webp" type="image/webp">
+      <img class="mascot mascot-thanks" src="assets/mascot-thanks.png"
+           alt="橙色肌肉猫吉祥物，正在挥手道别" width="871" height="900">
+    </picture>
     <div class="closing-thanks reveal" data-i18n="s12.thanks">Thank You</div>
     <div class="closing-name reveal" data-i18n="name">梁声文</div>
     <div class="closing-contact reveal">
