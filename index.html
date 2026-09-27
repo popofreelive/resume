@@ -1669,6 +1669,38 @@
 
     .slide-dark .slide-label { color: rgba(255, 255, 255, 0.3); }
 
+    /* --- 项目归属徽标：区分「公司项目」与「个人项目」 ---
+       招聘方扫一眼就知道哪段是任职经历、哪段是自己做的。 */
+    .kind-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3em;
+      padding: 0.18em 0.55em;
+      margin-right: 0.55em;
+      border-radius: 4px;
+      font-size: 0.78em;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: none;
+      white-space: nowrap;
+    }
+
+    /* 公司项目：蓝底徽标 */
+    .slide-label.is-company .kind-badge {
+      background: var(--accent-blue);
+      color: #fff;
+    }
+
+    /* 个人项目：橙底徽标（呼应 IP 形象的黄橙色系） */
+    .slide-label.is-personal .kind-badge {
+      background: #e8913f;
+      color: #fff;
+    }
+
+    /* 标签正文保持中性灰，颜色信号只由徽标承担，避免两个颜色互相打架 */
+
+    /* 教育/技能这类中性页不参与分类，保持原样 */
+
     .accent-bar {
       position: absolute;
       bottom: 0;
@@ -2337,7 +2369,7 @@
        SLIDE 4: 个人商业化项目 — AI报价助手
        =========================================== -->
   <section class="slide slide-dark" data-slide="3">
-    <span class="slide-label reveal"><i class="fa-solid fa-code"></i> <span data-i18n="s4.label">个人商业化项目 / VIBE CODING</span></span>
+    <span class="slide-label reveal is-personal"><span class="kind-badge" data-i18n-html="kb.personal" data-zh="个人项目" data-en="INDEPENDENT">个人项目</span><i class="fa-solid fa-code"></i> <span data-i18n="s4.label">个人商业化项目 / VIBE CODING</span></span>
     <span class="section-number">02</span>
     <div class="slide-content" style="padding-top: clamp(2.8rem, 5vw, 4.5rem);">
       <div class="project-showcase">
@@ -2380,7 +2412,7 @@
        SLIDE 5: 金春工业 — 企业Codex混合部署
        =========================================== -->
   <section class="slide slide-light" data-slide="4">
-    <span class="slide-label reveal"><i class="fa-solid fa-network-wired"></i> <span data-i18n="s5.label">FDE 项目 / ENTERPRISE AI ENABLEMENT</span></span>
+    <span class="slide-label reveal is-personal"><span class="kind-badge" data-i18n-html="kb.personal" data-zh="个人项目" data-en="INDEPENDENT">个人项目</span><i class="fa-solid fa-network-wired"></i> <span data-i18n="s5.label">客户交付 / CLIENT DELIVERY</span></span>
     <span class="section-number">03</span>
     <div class="slide-content" style="padding-top: clamp(2.8rem, 5vw, 4.5rem);">
       <div class="fde-showcase">
@@ -2442,7 +2474,7 @@
        SLIDE 6: 商协慧 — AI数字秘书
        =========================================== -->
   <section class="slide slide-dark" data-slide="5">
-    <span class="slide-label reveal"><i class="fa-solid fa-building"></i> <span data-i18n="s6.label">工作经历 · 1</span></span>
+    <span class="slide-label reveal is-company"><span class="kind-badge" data-i18n-html="kb.company" data-zh="公司项目" data-en="COMPANY">公司项目</span><i class="fa-solid fa-building"></i> <span data-i18n="s6.label">工作经历 · 1</span></span>
     <span class="section-number">04</span>
     <div class="slide-content" style="padding-top: clamp(2.8rem, 5vw, 4.5rem);">
       <div class="exp-header reveal">
@@ -2467,7 +2499,7 @@
        SLIDE 7: 未来一手 — 进销存
        =========================================== -->
   <section class="slide slide-light" data-slide="6">
-    <span class="slide-label reveal"><i class="fa-solid fa-building"></i> <span data-i18n="s7.label">工作经历 · 2</span></span>
+    <span class="slide-label reveal is-company"><span class="kind-badge" data-i18n-html="kb.company" data-zh="公司项目" data-en="COMPANY">公司项目</span><i class="fa-solid fa-building"></i> <span data-i18n="s7.label">工作经历 · 2</span></span>
     <span class="section-number">05</span>
     <div class="slide-content" style="padding-top: clamp(2.8rem, 5vw, 4.5rem);">
       <div class="exp-header reveal">
@@ -2491,7 +2523,7 @@
        SLIDE 8: 爱范儿 — 产品设计
        =========================================== -->
   <section class="slide slide-dark" data-slide="7">
-    <span class="slide-label reveal"><i class="fa-solid fa-building"></i> <span data-i18n="s8.label">工作经历 · 3</span></span>
+    <span class="slide-label reveal is-company"><span class="kind-badge" data-i18n-html="kb.company" data-zh="公司项目" data-en="COMPANY">公司项目</span><i class="fa-solid fa-building"></i> <span data-i18n="s8.label">工作经历 · 3</span></span>
     <span class="section-number">06</span>
     <div class="slide-content" style="padding-top: clamp(2.8rem, 5vw, 4.5rem);">
       <div class="exp-header reveal">
@@ -2516,7 +2548,7 @@
        SLIDE 9: 爱范儿 — 业绩
        =========================================== -->
   <section class="slide slide-light" data-slide="8">
-    <span class="slide-label reveal"><i class="fa-solid fa-trophy"></i> <span data-i18n="s9.label">工作业绩 · 爱范儿</span></span>
+    <span class="slide-label reveal is-company"><span class="kind-badge" data-i18n-html="kb.company" data-zh="公司项目" data-en="COMPANY">公司项目</span><i class="fa-solid fa-trophy"></i> <span data-i18n="s9.label">工作业绩 · 爱范儿</span></span>
     <span class="section-number">07</span>
     <div class="slide-content" style="padding-top: clamp(2.8rem, 5vw, 4.5rem);">
       <div class="achievement-grid">
@@ -2565,7 +2597,7 @@
        SLIDE 10: 碧桂园
        =========================================== -->
   <section class="slide slide-dark" data-slide="9">
-    <span class="slide-label reveal"><i class="fa-solid fa-building"></i> <span data-i18n="s10.label">工作经历 · 4</span></span>
+    <span class="slide-label reveal is-company"><span class="kind-badge" data-i18n-html="kb.company" data-zh="公司项目" data-en="COMPANY">公司项目</span><i class="fa-solid fa-building"></i> <span data-i18n="s10.label">工作经历 · 4</span></span>
     <span class="section-number">08</span>
     <div class="slide-content" style="padding-top: clamp(2.8rem, 5vw, 4.5rem);">
       <div class="exp-header reveal">
@@ -2796,7 +2828,7 @@
       's4.k3': 'Multi-image recognition, manual review, supplier quote merging, bulk markup and standard PNG export',
       's4.k4': 'End-to-end flow covering WeChat image picking, task history, quotations, opening and settlement statements',
 
-      's5.label': 'FDE PROJECT / ENTERPRISE AI ENABLEMENT',
+      's5.label': 'CLIENT DELIVERY / ENTERPRISE AI ENABLEMENT',
       's5.meta': 'Jinchun Industrial · FDE delivery project (lead)',
       's5.desc': 'Led enterprise AI engineering enablement as an FDE: started by researching each role’s real AI use cases and usage intensity, then designed a tiered access plan and drove company-wide adoption, finally distilling the delivery process into a reusable SOP. High-frequency roles use official accounts; low-frequency roles call through an enterprise relay on demand — avoiding idle paid seats while keeping AI available to everyone and controlling total spend.',
       's5.ml1': 'Staff onboarded to Codex',
