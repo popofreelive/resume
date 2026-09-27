@@ -1394,6 +1394,19 @@
     }
 
     /* --- MASCOT (IP 形象) --- */
+    /* 偏左的根因：<picture> 是 flex 子项（会被强制 blockify），它的宽度来自
+       内部 img 的 max-width（相对 slide 计算），而 img 实际按 vh 渲染得更窄。
+       两者不等宽 → 右侧多出 100px 空白 → 图片看着偏左。
+       解法：让 img 撑满 picture 的宽度（width:100%），两边就一致了。 */
+    .slide-closing picture,
+    .title-right picture {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      line-height: 0;
+      max-width: 100%;
+    }
+
     .mascot {
       display: block;
       height: auto;
