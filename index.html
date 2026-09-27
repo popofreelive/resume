@@ -3114,8 +3114,10 @@
       function init() {
         let saved = null;
         try { saved = localStorage.getItem('resume-lang'); } catch (e) {}
+        // 默认中文：不再按浏览器语言自动判断。
+        // 只有用户手动切过一次（localStorage 里有记录）才沿用他的选择。
         if (saved !== 'zh' && saved !== 'en') {
-          saved = (navigator.language || '').toLowerCase().startsWith('zh') ? 'zh' : 'en';
+          saved = 'zh';
         }
         apply(saved);
       }
