@@ -30,7 +30,7 @@
       --accent-mint: #2dd4a8;
       --text-dark: #101014;
       --text-light: #ffffff;
-      --text-muted: #5f6672;
+      --text-muted: #6b7280;
       --text-secondary: #374151;
       --border-light: rgba(255, 255, 255, 0.08);
       --border-dark: rgba(0, 0, 0, 0.06);
@@ -459,40 +459,27 @@
     }
 
     /* --- PAPER TEXTURE ---
-       浅色页用真实手工纸纹理（大块深浅斑驳 + 细纤维颗粒）；
-       深色页保留轻噪点：深色上叠纸纹会显脏。
-       注意 z-index 必须为负：.slide-content 没有 z-index，
-       如果这里用 0，不透明的纸纹会盖住所有正文（实测整页变空白）。 */
+       所有页面统一铺一层极淡纸张颗粒，让底色不再是死板的纯黑/纯白。
+       放在 z-index:0，内容层都在它上面。 */
     .slide-light::after,
     .slide-dark::after {
       content: '';
       position: absolute;
       inset: 0;
+      background-image: var(--paper-noise);
+      background-size: 200px 200px;
       pointer-events: none;
-      z-index: -1;
+      z-index: 0;
     }
 
-    /* 浅色页：真实纸张，cover 铺满不重复，避免平铺出现规律接缝。
-       纹理自带米色，用 normal 直接作为底色；
-       若用 multiply 会在米色底上再压一层、整体变灰。 */
     .slide-light::after {
-      background-image: url("assets/paper-light.jpg");
-      background-size: cover;
-      background-position: center;
-      opacity: 1;
-      mix-blend-mode: normal;
+      opacity: 0.5;
+      mix-blend-mode: multiply;
     }
 
     .slide-dark::after {
-      background-image: var(--paper-noise);
-      background-size: 200px 200px;
       opacity: 0.26;
       mix-blend-mode: screen;
-    }
-
-    /* 纸纹在负层，需要给浅色页一个有层级的底，否则会漏到页面背景上 */
-    .slide-light {
-      z-index: 0;
     }
 
 
