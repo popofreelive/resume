@@ -1844,7 +1844,9 @@
         top: 1rem;
         left: 1.5rem;
         right: 1.5rem;
-        max-width: calc(100% - 3rem);
+        /* 右侧留出语言切换按钮的位置（约 5.5rem），
+           否则窄屏上标签文字会被按钮压住。 */
+        max-width: calc(100% - 7rem);
         font-size: 0.72rem;
         letter-spacing: 0.08em;
         line-height: 1.25;
