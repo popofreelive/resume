@@ -221,6 +221,24 @@
       transform: scale(1.4);
     }
 
+    /* 平板（701–1100px）走的是桌面版竖向圆点，但基础尺寸只有 10x10，
+       手指根本点不中。这里把可点区域撑到 44px，视觉圆点大小不变。 */
+    @media (min-width: 701px) and (max-width: 1100px) {
+      .nav-dots {
+        gap: 2px;
+      }
+
+      .nav-dot {
+        box-sizing: content-box;
+        padding: 17px 0;
+        background-clip: content-box;
+      }
+
+      .nav-dot.active {
+        background-clip: content-box;
+      }
+    }
+
     .slide-light .nav-dot { background: rgba(0, 0, 0, 0.2); }
     .slide-light .nav-dot.active { background: var(--accent-blue); }
 
@@ -1002,6 +1020,78 @@
 
       .fde-workstream {
         padding-top: 0.45rem;
+      }
+    }
+
+    /* 小屏手机（如 iPhone SE 667px 高、Galaxy S23 780px 高）：
+       FDE 页内容比一屏高约 100px，标题会压到徽标、最后一条要点被切掉。
+       这里整块缩小，并给标题留出顶部空间。 */
+    @media (max-width: 700px) and (max-height: 800px) {
+      .fde-meta {
+        margin-bottom: 0.15rem;
+        font-size: 0.7rem;
+      }
+
+      /* 内容居中会让溢出上下各分一半（实测 -35/+705），
+         小屏改为从顶部开始排，避免标题被顶出屏幕外。 */
+      .slide-content {
+        justify-content: flex-start;
+      }
+
+      .fde-title {
+        font-size: clamp(1.35rem, 7.2vw, 1.8rem);
+        line-height: 1.15;
+      }
+
+      /* 描述段落实测 189px，是整页最大的一块。
+         下方 4 条要点已覆盖同样信息，小屏截断到 3 行，
+         保证最后一条要点不被切掉。点开可看全文（见 JS）。 */
+      .fde-description {
+        font-size: clamp(0.72rem, 3.1vw, 0.84rem);
+        line-height: 1.42;
+        margin-top: 0.35rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .fde-description.is-expanded {
+        -webkit-line-clamp: unset;
+        line-clamp: unset;
+      }
+
+      .fde-metrics {
+        margin-top: 0.45rem;
+        padding: 0.4rem 0;
+      }
+
+      .fde-metric-value {
+        font-size: clamp(0.82rem, 4vw, 1.05rem);
+      }
+
+      .fde-metric-label {
+        font-size: clamp(0.58rem, 2.6vw, 0.68rem);
+        line-height: 1.25;
+      }
+
+      .fde-workstreams {
+        gap: 0.35rem;
+        margin-top: 0.45rem;
+      }
+
+      .fde-workstream {
+        padding-top: 0.3rem;
+      }
+
+      .fde-workstream-title {
+        font-size: clamp(0.68rem, 3vw, 0.78rem);
+      }
+
+      .fde-workstream p {
+        font-size: clamp(0.6rem, 2.6vw, 0.7rem);
+        line-height: 1.35;
       }
     }
 
@@ -2236,6 +2326,89 @@
         font-size: 0.9rem;
       }
     }
+    /* 超小屏（iPhone SE 667px 高）：项目页的小程序截图会顶出屏幕，
+       隐藏它；文字信息已完整表达项目内容。 */
+    @media (max-width: 700px) and (max-height: 700px) {
+      .project-visual {
+        display: none;
+      }
+
+      /* FDE 页还差约 50px，再收一档间距 */
+      .fde-description {
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+      }
+
+      .fde-workstreams {
+        gap: 0.25rem;
+        margin-top: 0.35rem;
+      }
+
+      .fde-workstream {
+        padding-top: 0.22rem;
+      }
+
+      .fde-workstream p {
+        line-height: 1.3;
+      }
+
+      .fde-metrics {
+        margin-top: 0.35rem;
+        padding: 0.3rem 0;
+      }
+    }
+
+    /* 手机横屏（高度只有 350-420px）：内容一屏放不下，
+       把次要区块隐藏，只留标题、指标和要点，保证不被裁切。 */
+    @media (max-height: 460px) and (orientation: landscape) {
+      .slide-content {
+        justify-content: flex-start;
+      }
+
+      .project-visual,
+      .fde-flow {
+        display: none;
+      }
+
+      .fde-description,
+      .project-description {
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .fde-title,
+      .project-title {
+        font-size: clamp(1.3rem, 3.4vw, 1.9rem);
+        line-height: 1.15;
+      }
+
+      /* 横屏有横向空间，4 条要点改为两栏，省掉约 100px 高度 */
+      .fde-workstreams {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.2rem 0.9rem;
+        margin-top: 0.3rem;
+      }
+
+      .fde-workstream {
+        padding-top: 0.2rem;
+      }
+
+      .fde-workstream p,
+      .project-contribution span {
+        font-size: clamp(0.58rem, 1.5vw, 0.7rem);
+        line-height: 1.3;
+      }
+
+      .fde-metrics,
+      .project-metrics {
+        margin-top: 0.3rem;
+        padding: 0.25rem 0;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -2379,15 +2552,15 @@
           <p class="project-description reveal" data-i18n="s4.desc">面向场外期权从业者，将多家供应商报价截图自动识别、校对合并并生成标准报价图片，同时支持开仓单与结算单。</p>
           <div class="project-metrics reveal">
             <div class="project-metric">
-              <div class="project-metric-value"><strong>2</strong> 家</div>
+              <div class="project-metric-value" data-i18n-html="s4.mv1" data-zh="<strong>2</strong> 家" data-en="<strong>2</strong> clients"><strong>2</strong> 家</div>
               <div class="project-metric-label" data-i18n="s4.m1">付费客户</div>
             </div>
             <div class="project-metric">
-              <div class="project-metric-value"><strong>¥6,000</strong>/年</div>
+              <div class="project-metric-value" data-i18n-html="s4.mv2" data-zh="<strong>¥6,000</strong>/年" data-en="<strong>¥6,000</strong>/yr"><strong>¥6,000</strong>/年</div>
               <div class="project-metric-label" data-i18n="s4.m2">商业化年费方案</div>
             </div>
             <div class="project-metric">
-              <div class="project-metric-value">H5 + 小程序</div>
+              <div class="project-metric-value" data-i18n="s4.mv3">H5 + 小程序</div>
               <div class="project-metric-label" data-i18n="s4.m3">双端上线交付</div>
             </div>
           </div>
@@ -2823,6 +2996,7 @@
       's4.m1': 'Paying clients',
       's4.m2': 'Annual commercial plan',
       's4.m3': 'Web + Mini program',
+      's4.mv3': 'H5 + Mini program',
       's4.k1': 'Independently ran requirement validation, product design, full-stack development, testing, deployment and ongoing iteration',
       's4.k2': 'Built via Vibe Coding with Codex and Claude Code; multimodal models parse unstructured quotation images',
       's4.k3': 'Multi-image recognition, manual review, supplier quote merging, bulk markup and standard PNG export',
