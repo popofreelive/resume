@@ -206,6 +206,82 @@
     .slide-light .nav-dot.active { background: var(--accent-blue); }
 
     /* ===========================================
+         LANGUAGE TOGGLE
+         =========================================== */
+    .lang-toggle {
+      position: fixed;
+      top: clamp(0.75rem, 2vw, 1.25rem);
+      right: clamp(0.75rem, 2vw, 1.5rem);
+      z-index: 1001;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4em;
+      padding: 0.5rem 0.85rem;
+      min-height: 44px;
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: rgba(255, 255, 255, 0.75);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+    }
+
+    .lang-toggle:hover {
+      background: rgba(255, 255, 255, 0.16);
+      border-color: rgba(255, 255, 255, 0.3);
+      color: #fff;
+    }
+
+    .lang-toggle:focus-visible {
+      outline: 2px solid var(--accent-blue);
+      outline-offset: 2px;
+    }
+
+    /* 浅色底页面上换成深色描边，否则按钮看不见 */
+    body.on-light-slide .lang-toggle {
+      color: rgba(0, 0, 0, 0.6);
+      background: rgba(0, 0, 0, 0.05);
+      border-color: rgba(0, 0, 0, 0.14);
+    }
+
+    body.on-light-slide .lang-toggle:hover {
+      background: rgba(0, 0, 0, 0.1);
+      border-color: rgba(0, 0, 0, 0.26);
+      color: #000;
+    }
+
+    .lang-option {
+      opacity: 0.45;
+      transition: opacity 0.25s ease;
+    }
+
+    .lang-option.is-active {
+      opacity: 1;
+      color: #fff;
+    }
+
+    body.on-light-slide .lang-option.is-active { color: var(--accent-blue); }
+
+    .lang-sep { opacity: 0.3; }
+
+    /* 窄屏收紧，避免和页码挤在一起 */
+    @media (max-width: 700px) {
+      .lang-toggle {
+        top: 0.55rem;
+        right: 0.7rem;
+        padding: 0.45rem 0.7rem;
+        font-size: 0.72rem;
+        letter-spacing: 0.02em;
+      }
+    }
+
+    /* ===========================================
          ANIMATIONS
          =========================================== */
     .reveal {
@@ -1947,13 +2023,21 @@
   <!-- Navigation Dots -->
   <nav class="nav-dots" id="navDots"></nav>
 
+  <!-- Language Toggle -->
+  <button class="lang-toggle" id="langToggle" type="button" aria-label="切换语言 / Switch language">
+    <i class="fa-solid fa-globe"></i>
+    <span class="lang-option" data-lang-option="zh">中</span>
+    <span class="lang-sep">/</span>
+    <span class="lang-option" data-lang-option="en">EN</span>
+  </button>
+
   <!-- ===========================================
        SLIDE 1: TITLE
        =========================================== -->
   <section class="slide slide-title" data-slide="0">
     <div class="title-left">
-      <h1 class="title-name reveal">梁声文</h1>
-      <p class="title-role reveal"><i class="fa-solid fa-microchip"></i> 产品经理 · AI 交付方向（FDE）</p>
+      <h1 class="title-name reveal" data-i18n="name">梁声文</h1>
+      <p class="title-role reveal"><i class="fa-solid fa-microchip"></i> <span data-i18n="role">产品经理 · AI 交付方向（FDE）</span></p>
       <div class="title-contact reveal">
         <span><i class="fa-solid fa-phone"></i> 18007770837</span>
         <span><i class="fa-solid fa-envelope"></i> lleisdbd@qq.com</span>
@@ -1961,7 +2045,7 @@
     </div>
     <div class="title-right">
       <div class="big-label reveal-scale">PM</div>
-      <div class="sub-label reveal"><i class="fa-solid fa-briefcase"></i> Forward Deployed Product Manager</div>
+      <div class="sub-label reveal"><i class="fa-solid fa-briefcase"></i> <span data-i18n="subRole">Forward Deployed Product Manager</span></div>
     </div>
     <div class="accent-bar"></div>
   </section>
@@ -1971,7 +2055,7 @@
        =========================================== -->
   <section class="slide slide-dark" data-slide="1">
     <div class="grid-pattern"></div>
-    <span class="slide-label reveal"><i class="fa-solid fa-timeline"></i> 职业历程 / CAREER PATH</span>
+    <span class="slide-label reveal"><i class="fa-solid fa-timeline"></i> <span data-i18n="s2.label">职业历程 / CAREER PATH</span></span>
     <span class="section-number">00</span>
     <div class="slide-content" style="padding-top: clamp(2.8rem, 5vw, 4.5rem);">
       <div class="timeline-container">
@@ -1979,46 +2063,46 @@
           <div class="timeline-node reveal">
             <div class="timeline-dot"><i class="fa-solid fa-graduation-cap"></i></div>
             <div class="timeline-year">2016</div>
-            <div class="timeline-label">沈阳建筑大学<br>机械设计及自动化</div>
-            <div class="timeline-duration">本科 · 4年</div>
+            <div class="timeline-label" data-i18n-html="s2.t1" data-zh="沈阳建筑大学<br>机械设计及自动化" data-en="Shenyang Jianzhu University<br>Mechanical Design &amp; Automation">沈阳建筑大学<br>机械设计及自动化</div>
+            <div class="timeline-duration" data-i18n="s2.d1">本科 · 4年</div>
           </div>
           <div class="timeline-node reveal">
             <div class="timeline-dot"><i class="fa-solid fa-city"></i></div>
             <div class="timeline-year">2020</div>
-            <div class="timeline-label">碧桂园 · 数字化中心<br>品牌营销产品</div>
-            <div class="timeline-duration">1年</div>
+            <div class="timeline-label" data-i18n-html="s2.t2" data-zh="碧桂园 · 数字化中心<br>品牌营销产品" data-en="Country Garden · Digital Center<br>Brand Marketing Products">碧桂园 · 数字化中心<br>品牌营销产品</div>
+            <div class="timeline-duration" data-i18n="s2.d2">1年</div>
           </div>
           <div class="timeline-node reveal">
             <div class="timeline-dot"><i class="fa-solid fa-cart-shopping"></i></div>
             <div class="timeline-year">2021</div>
-            <div class="timeline-label">爱范儿科技<br>电商 / 票务产品</div>
-            <div class="timeline-duration">3年</div>
+            <div class="timeline-label" data-i18n-html="s2.t3" data-zh="爱范儿科技<br>电商 / 票务产品" data-en="ifanr Technology<br>E-commerce / Ticketing">爱范儿科技<br>电商 / 票务产品</div>
+            <div class="timeline-duration" data-i18n="s2.d3">3年</div>
           </div>
           <div class="timeline-node reveal">
             <div class="timeline-dot"><i class="fa-solid fa-store"></i></div>
             <div class="timeline-year">2024</div>
-            <div class="timeline-label">未来一手<br>进销存产品</div>
-            <div class="timeline-duration">5个月</div>
+            <div class="timeline-label" data-i18n-html="s2.t4" data-zh="未来一手<br>进销存产品" data-en="Weilai Yishou<br>Inventory Management">未来一手<br>进销存产品</div>
+            <div class="timeline-duration" data-i18n="s2.d4">5个月</div>
           </div>
           <div class="timeline-node active reveal">
             <div class="timeline-dot"><i class="fa-solid fa-microchip"></i></div>
             <div class="timeline-year">2025</div>
-            <div class="timeline-label">商协慧<br>AI数字秘书</div>
-            <div class="timeline-duration">至今</div>
+            <div class="timeline-label" data-i18n-html="s2.t5" data-zh="商协慧<br>AI数字秘书" data-en="Shangxiehui<br>AI Digital Secretary">商协慧<br>AI数字秘书</div>
+            <div class="timeline-duration" data-i18n="s2.d5">至今</div>
           </div>
         </div>
         <div class="timeline-summary reveal">
           <div class="timeline-stat">
             <div class="timeline-stat-value"><i class="fa-solid fa-briefcase"></i> 5+</div>
-            <div class="timeline-stat-label">年产品经验</div>
+            <div class="timeline-stat-label" data-i18n="s2.st1">年产品经验</div>
           </div>
           <div class="timeline-stat">
             <div class="timeline-stat-value"><i class="fa-solid fa-building"></i> 4</div>
-            <div class="timeline-stat-label">行业深耕</div>
+            <div class="timeline-stat-label" data-i18n="s2.st2">行业深耕</div>
           </div>
           <div class="timeline-stat">
             <div class="timeline-stat-value"><i class="fa-solid fa-robot"></i> AI</div>
-            <div class="timeline-stat-label">当前聚焦方向</div>
+            <div class="timeline-stat-label" data-i18n="s2.st3">当前聚焦方向</div>
           </div>
         </div>
       </div>
@@ -2030,25 +2114,25 @@
        SLIDE 3: 个人总结
        =========================================== -->
   <section class="slide slide-light" data-slide="2">
-    <span class="slide-label reveal"><i class="fa-solid fa-user"></i> 个人总结 / SUMMARY</span>
+    <span class="slide-label reveal"><i class="fa-solid fa-user"></i> <span data-i18n="s3.label">个人总结 / SUMMARY</span></span>
     <span class="section-number">01</span>
     <div class="slide-content" style="padding-top: clamp(2.8rem, 5vw, 4.5rem);">
       <div class="summary-grid">
         <div class="summary-card reveal">
           <div class="card-icon"><i class="fa-solid fa-handshake"></i></div>
-          <p class="card-text">面向客户交付：独立完成需求调研 → 方案设计 → 落地推进，主导企业 AI 能力交付项目，覆盖<span class="num">50+</span>员工</p>
+          <p class="card-text" data-i18n-html="s3.c1" data-zh="面向客户交付：独立完成需求调研 → 方案设计 → 落地推进，主导企业 AI 能力交付项目，覆盖<span class='num'>50+</span>员工" data-en="Client-facing delivery: independently drove discovery &rarr; solution design &rarr; rollout, leading an enterprise AI enablement project covering <span class='num'>50+</span> employees">面向客户交付：独立完成需求调研 → 方案设计 → 落地推进，主导企业 AI 能力交付项目，覆盖<span class="num">50+</span>员工</p>
         </div>
         <div class="summary-card reveal">
           <div class="card-icon"><i class="fa-solid fa-code"></i></div>
-          <p class="card-text">不止产出 PRD：使用 Codex、Claude Code 独立完成全栈开发与部署，自研 AI 报价助手已服务<span class="num">2家</span>付费客户</p>
+          <p class="card-text" data-i18n-html="s3.c2" data-zh="不止产出 PRD：使用 Codex、Claude Code 独立完成全栈开发与部署，自研 AI 报价助手已服务<span class='num'>2家</span>付费客户" data-en="More than PRDs: shipped full-stack development and deployment solo with Codex and Claude Code; my AI Quotation Assistant now serves <span class='num'>2</span> paying clients">不止产出 PRD：使用 Codex、Claude Code 独立完成全栈开发与部署，自研 AI 报价助手已服务<span class="num">2家</span>付费客户</p>
         </div>
         <div class="summary-card reveal">
           <div class="card-icon"><i class="fa-solid fa-scale-balanced"></i></div>
-          <p class="card-text">方案权衡能力：按岗位使用强度分层接入，在保障全员可用性的前提下控制投入，并解决官方账号限额导致的业务中断</p>
+          <p class="card-text" data-i18n="s3.c3">方案权衡能力：按岗位使用强度分层接入，在保障全员可用性的前提下控制投入，并解决官方账号限额导致的业务中断</p>
         </div>
         <div class="summary-card reveal">
           <div class="card-icon"><i class="fa-solid fa-diagram-project"></i></div>
-          <p class="card-text">方法论沉淀：将企业 AI 交付流程整理为可复用 SOP，具备从单客户交付到能力复制的完整视角</p>
+          <p class="card-text" data-i18n="s3.c4">方法论沉淀：将企业 AI 交付流程整理为可复用 SOP，具备从单客户交付到能力复制的完整视角</p>
         </div>
       </div>
     </div>
@@ -2060,33 +2144,33 @@
        =========================================== -->
   <section class="slide slide-dark" data-slide="3">
     <div class="grid-pattern"></div>
-    <span class="slide-label reveal"><i class="fa-solid fa-code"></i> 个人商业化项目 / VIBE CODING</span>
+    <span class="slide-label reveal"><i class="fa-solid fa-code"></i> <span data-i18n="s4.label">个人商业化项目 / VIBE CODING</span></span>
     <span class="section-number">02</span>
     <div class="slide-content" style="padding-top: clamp(2.8rem, 5vw, 4.5rem);">
       <div class="project-showcase">
         <div class="project-copy">
-          <div class="project-meta reveal">2026.07 - 至今 · 独立产品 / 设计 / 开发 / 部署</div>
-          <h2 class="project-title reveal">AI <span>报价助手</span></h2>
-          <p class="project-description reveal">面向场外期权从业者，将多家供应商报价截图自动识别、校对合并并生成标准报价图片，同时支持开仓单与结算单。</p>
+          <div class="project-meta reveal" data-i18n="s4.meta">2026.07 - 至今 · 独立产品 / 设计 / 开发 / 部署</div>
+          <h2 class="project-title reveal" data-i18n-html="s4.title" data-zh="AI <span>报价助手</span>" data-en="AI <span>Quotation Assistant</span>">AI <span>报价助手</span></h2>
+          <p class="project-description reveal" data-i18n="s4.desc">面向场外期权从业者，将多家供应商报价截图自动识别、校对合并并生成标准报价图片，同时支持开仓单与结算单。</p>
           <div class="project-metrics reveal">
             <div class="project-metric">
               <div class="project-metric-value"><strong>2</strong> 家</div>
-              <div class="project-metric-label">付费客户</div>
+              <div class="project-metric-label" data-i18n="s4.m1">付费客户</div>
             </div>
             <div class="project-metric">
               <div class="project-metric-value"><strong>¥6,000</strong>/年</div>
-              <div class="project-metric-label">商业化年费方案</div>
+              <div class="project-metric-label" data-i18n="s4.m2">商业化年费方案</div>
             </div>
             <div class="project-metric">
               <div class="project-metric-value">H5 + 小程序</div>
-              <div class="project-metric-label">双端上线交付</div>
+              <div class="project-metric-label" data-i18n="s4.m3">双端上线交付</div>
             </div>
           </div>
           <div class="project-contributions">
-            <div class="project-contribution reveal"><i class="fa-solid fa-check"></i><span>独立完成需求验证、产品设计、全栈开发、测试部署与持续迭代</span></div>
-            <div class="project-contribution reveal"><i class="fa-solid fa-check"></i><span>使用 Codex、Claude Code 完成 Vibe Coding，接入多模态模型处理非结构化报价图</span></div>
-            <div class="project-contribution reveal"><i class="fa-solid fa-check"></i><span>支持多图识别、人工复核、供应商报价合并、批量加点与标准 PNG 导出</span></div>
-            <div class="project-contribution reveal"><i class="fa-solid fa-check"></i><span>打通微信选图、历史任务、报价单、开仓单与结算单完整业务流程</span></div>
+            <div class="project-contribution reveal"><i class="fa-solid fa-check"></i><span data-i18n="s4.k1">独立完成需求验证、产品设计、全栈开发、测试部署与持续迭代</span></div>
+            <div class="project-contribution reveal"><i class="fa-solid fa-check"></i><span data-i18n="s4.k2">使用 Codex、Claude Code 完成 Vibe Coding，接入多模态模型处理非结构化报价图</span></div>
+            <div class="project-contribution reveal"><i class="fa-solid fa-check"></i><span data-i18n="s4.k3">支持多图识别、人工复核、供应商报价合并、批量加点与标准 PNG 导出</span></div>
+            <div class="project-contribution reveal"><i class="fa-solid fa-check"></i><span data-i18n="s4.k4">打通微信选图、历史任务、报价单、开仓单与结算单完整业务流程</span></div>
           </div>
           <div class="project-stack reveal">CODEX · CLAUDE CODE · NEXT.JS · TYPESCRIPT · WECHAT MINI PROGRAM · MULTIMODAL AI</div>
         </div>
@@ -2103,58 +2187,58 @@
        SLIDE 5: 金春工业 — 企业Codex混合部署
        =========================================== -->
   <section class="slide slide-light" data-slide="4">
-    <span class="slide-label reveal"><i class="fa-solid fa-network-wired"></i> FDE 项目 / ENTERPRISE AI ENABLEMENT</span>
+    <span class="slide-label reveal"><i class="fa-solid fa-network-wired"></i> <span data-i18n="s5.label">FDE 项目 / ENTERPRISE AI ENABLEMENT</span></span>
     <span class="section-number">03</span>
     <div class="slide-content" style="padding-top: clamp(2.8rem, 5vw, 4.5rem);">
       <div class="fde-showcase">
         <div class="fde-copy">
-          <div class="fde-meta reveal">金春工业 · FDE 交付项目（主责）</div>
-          <h2 class="fde-title reveal">企业全员 <span>Codex 分层部署</span></h2>
-          <p class="fde-description reveal">以 FDE 方式主导企业 AI 工程能力落地：从调研各岗位的 AI 使用场景与强度差异入手，设计分层接入方案并推进全员启用，最终将交付流程沉淀为可复用 SOP。高频岗位使用官方账号，低频岗位通过企业中转按需调用，避免全员购买固定席位造成闲置，在保障可用性的同时控制整体投入。</p>
+          <div class="fde-meta reveal" data-i18n="s5.meta">金春工业 · FDE 交付项目（主责）</div>
+          <h2 class="fde-title reveal" data-i18n-html="s5.title" data-zh="企业全员 <span>Codex 分层部署</span>" data-en="Company-wide <span>Tiered Codex Rollout</span>">企业全员 <span>Codex 分层部署</span></h2>
+          <p class="fde-description reveal" data-i18n="s5.desc">以 FDE 方式主导企业 AI 工程能力落地：从调研各岗位的 AI 使用场景与强度差异入手，设计分层接入方案并推进全员启用，最终将交付流程沉淀为可复用 SOP。高频岗位使用官方账号，低频岗位通过企业中转按需调用，避免全员购买固定席位造成闲置，在保障可用性的同时控制整体投入。</p>
           <div class="fde-metrics reveal">
             <div class="fde-metric">
-              <div class="fde-metric-value"><strong>50+</strong> 员工</div>
-              <div class="fde-metric-label">完成 Codex 部署</div>
+              <div class="fde-metric-value" data-i18n-html="s5.mv1" data-zh="<strong>50+</strong> 员工" data-en="<strong>50+</strong> staff"><strong>50+</strong> 员工</div>
+              <div class="fde-metric-label" data-i18n="s5.ml1">完成 Codex 部署</div>
             </div>
             <div class="fde-metric">
               <div class="fde-metric-value"><strong>¥20,000</strong></div>
-              <div class="fde-metric-label">单客户项目收费</div>
+              <div class="fde-metric-label" data-i18n="s5.ml2">单客户项目收费</div>
             </div>
             <div class="fde-metric">
-              <div class="fde-metric-value">SOP 沉淀</div>
-              <div class="fde-metric-label">交付流程可复用</div>
+              <div class="fde-metric-value" data-i18n="s5.mv3">SOP 沉淀</div>
+              <div class="fde-metric-label" data-i18n="s5.ml3">交付流程可复用</div>
             </div>
           </div>
           <div class="fde-workstreams">
             <div class="fde-workstream reveal">
-              <div class="fde-workstream-title"><i class="fa-solid fa-magnifying-glass-chart"></i>客户需求调研</div>
-              <p>走访各岗位员工，梳理真实 AI 使用场景与频率差异，明确分层接入的依据。</p>
+              <div class="fde-workstream-title"><i class="fa-solid fa-magnifying-glass-chart"></i><span data-i18n="s5.w1t">客户需求调研</span></div>
+              <p data-i18n="s5.w1d">走访各岗位员工，梳理真实 AI 使用场景与频率差异，明确分层接入的依据。</p>
             </div>
             <div class="fde-workstream reveal">
-              <div class="fde-workstream-title"><i class="fa-solid fa-shuffle"></i>分层接入方案设计</div>
-              <p>高频岗位使用官方账号，低频岗位通过企业中转按需调用，兼顾可用性与投入控制。</p>
+              <div class="fde-workstream-title"><i class="fa-solid fa-shuffle"></i><span data-i18n="s5.w2t">分层接入方案设计</span></div>
+              <p data-i18n="s5.w2d">高频岗位使用官方账号，低频岗位通过企业中转按需调用，兼顾可用性与投入控制。</p>
             </div>
             <div class="fde-workstream reveal">
-              <div class="fde-workstream-title"><i class="fa-solid fa-users-gear"></i>全员启用与赋能</div>
-              <p>面向 50+ 员工完成环境配置、安装引导与问题排查，推动 Codex 真正进入日常工作流。</p>
+              <div class="fde-workstream-title"><i class="fa-solid fa-users-gear"></i><span data-i18n="s5.w3t">全员启用与赋能</span></div>
+              <p data-i18n="s5.w3d">面向 50+ 员工完成环境配置、安装引导与问题排查，推动 Codex 真正进入日常工作流。</p>
             </div>
             <div class="fde-workstream reveal">
-              <div class="fde-workstream-title"><i class="fa-solid fa-diagram-project"></i>交付迭代与 SOP 沉淀</div>
-              <p>交付后持续跟进使用问题并迭代方案，将实施流程整理为可复用 SOP，支撑后续复制交付。</p>
+              <div class="fde-workstream-title"><i class="fa-solid fa-diagram-project"></i><span data-i18n="s5.w4t">交付迭代与 SOP 沉淀</span></div>
+              <p data-i18n="s5.w4d">交付后持续跟进使用问题并迭代方案，将实施流程整理为可复用 SOP，支撑后续复制交付。</p>
             </div>
           </div>
         </div>
         <div class="fde-flow reveal-scale" aria-label="企业Codex混合部署架构">
           <div class="fde-flow-caption">ENTERPRISE CODEX ACCESS</div>
-          <div class="fde-flow-node"><i class="fa-solid fa-users"></i>企业全员开发环境</div>
+          <div class="fde-flow-node"><i class="fa-solid fa-users"></i><span data-i18n="s5.f1">企业全员开发环境</span></div>
           <div class="fde-flow-arrow"><i class="fa-solid fa-arrow-down"></i></div>
-          <div class="fde-flow-node codex-node"><i class="fa-solid fa-terminal"></i>Codex 统一配置</div>
+          <div class="fde-flow-node codex-node"><i class="fa-solid fa-terminal"></i><span data-i18n="s5.f2">Codex 统一配置</span></div>
           <div class="fde-flow-arrow"><i class="fa-solid fa-code-branch"></i></div>
           <div class="fde-flow-branches">
-            <div class="fde-flow-node"><i class="fa-solid fa-cloud"></i><span>官方账号<small>高频岗位</small></span></div>
-            <div class="fde-flow-node"><i class="fa-solid fa-route"></i><span>企业中转<small>低频岗位</small></span></div>
+            <div class="fde-flow-node"><i class="fa-solid fa-cloud"></i><span><span data-i18n="s5.f3">官方账号</span><small data-i18n="s5.f3s">高频岗位</small></span></div>
+            <div class="fde-flow-node"><i class="fa-solid fa-route"></i><span><span data-i18n="s5.f4">企业中转</span><small data-i18n="s5.f4s">低频岗位</small></span></div>
           </div>
-          <div class="fde-flow-result">全员可用 · 按需接入 · 控制成本</div>
+          <div class="fde-flow-result" data-i18n="s5.f5">全员可用 · 按需接入 · 控制成本</div>
         </div>
       </div>
     </div>
@@ -2166,22 +2250,22 @@
        =========================================== -->
   <section class="slide slide-dark" data-slide="5">
     <div class="grid-pattern"></div>
-    <span class="slide-label reveal"><i class="fa-solid fa-building"></i> 工作经历 · 1</span>
+    <span class="slide-label reveal"><i class="fa-solid fa-building"></i> <span data-i18n="s6.label">工作经历 · 1</span></span>
     <span class="section-number">04</span>
     <div class="slide-content" style="padding-top: clamp(2.8rem, 5vw, 4.5rem);">
       <div class="exp-header reveal">
         <div>
-          <div class="exp-company"><i class="fa-solid fa-building-columns"></i> 广州商协慧网络科技有限公司</div>
-          <div class="exp-role"><i class="fa-solid fa-id-badge"></i> 产品经理 · 产研部 · 广州</div>
+          <div class="exp-company"><i class="fa-solid fa-building-columns"></i> <span data-i18n="s6.company">广州商协慧网络科技有限公司</span></div>
+          <div class="exp-role"><i class="fa-solid fa-id-badge"></i> <span data-i18n="s6.role">产品经理 · 产研部 · 广州</span></div>
         </div>
-        <div class="exp-period"><i class="fa-regular fa-calendar"></i> 2025.12 - 至今</div>
+        <div class="exp-period"><i class="fa-regular fa-calendar"></i> <span data-i18n="s6.period">2025.12 - 至今</span></div>
       </div>
-      <p class="exp-desc reveal">负责商协会SaaS小程序、名片小程序产品设计，包括会务系统、内容系统、页面装修系统及智能AI名片。服务<span class="num">500+</span>社会组织，<span class="num">20W+</span>会员，年复购率<span class="num">80%</span>。</p>
+      <p class="exp-desc reveal" data-i18n-html="s6.desc" data-zh="负责商协会SaaS小程序、名片小程序产品设计，包括会务系统、内容系统、页面装修系统及智能AI名片。服务<span class='num'>500+</span>社会组织，<span class='num'>20W+</span>会员，年复购率<span class='num'>80%</span>。" data-en="Led product design for chamber-of-commerce SaaS and digital business card mini programs, covering event management, CMS, page builder and AI-powered cards. Serving <span class='num'>500+</span> organizations and <span class='num'>200K+</span> members, with an <span class='num'>80%</span> annual renewal rate.">负责商协会SaaS小程序、名片小程序产品设计，包括会务系统、内容系统、页面装修系统及智能AI名片。服务<span class="num">500+</span>社会组织，<span class="num">20W+</span>会员，年复购率<span class="num">80%</span>。</p>
       <ul class="exp-list">
-        <li class="reveal"><strong>多平台AI数字秘书架构</strong> — 深度对接Coze、阿里百炼、腾讯元器等<span class="num">Agent</span>开发平台</li>
-        <li class="reveal"><strong>AI名片分身产品</strong> — 运用COSTAR提示词框架，实现<span class="num">24h</span>在线AI社交与专业问答</li>
-        <li class="reveal"><strong>名片AI智能录入</strong> — OCR+大模型自动打标签，接入Seedream <span class="num">4.0</span>生成专业形象照</li>
-        <li class="reveal"><strong>文章AI助手</strong> — 微信文章智能解析与摘要提取，自动化生成文章简介</li>
+        <li class="reveal" data-i18n-html="s6.l1" data-zh="<strong>多平台AI数字秘书架构</strong> — 深度对接Coze、阿里百炼、腾讯元器等<span class='num'>Agent</span>开发平台" data-en="<strong>Multi-platform AI secretary architecture</strong> &mdash; deep integration with <span class='num'>Agent</span> platforms including Coze, Alibaba Bailian and Tencent Yuanqi"><strong>多平台AI数字秘书架构</strong> — 深度对接Coze、阿里百炼、腾讯元器等<span class="num">Agent</span>开发平台</li>
+        <li class="reveal" data-i18n-html="s6.l2" data-zh="<strong>AI名片分身产品</strong> — 运用COSTAR提示词框架，实现<span class='num'>24h</span>在线AI社交与专业问答" data-en="<strong>AI card avatar</strong> &mdash; COSTAR prompt framework powering <span class='num'>24/7</span> AI networking and professional Q&amp;A"><strong>AI名片分身产品</strong> — 运用COSTAR提示词框架，实现<span class="num">24h</span>在线AI社交与专业问答</li>
+        <li class="reveal" data-i18n-html="s6.l3" data-zh="<strong>名片AI智能录入</strong> — OCR+大模型自动打标签，接入Seedream <span class='num'>4.0</span>生成专业形象照" data-en="<strong>AI business card capture</strong> &mdash; OCR plus LLM auto-tagging, with Seedream <span class='num'>4.0</span> generating professional headshots"><strong>名片AI智能录入</strong> — OCR+大模型自动打标签，接入Seedream <span class="num">4.0</span>生成专业形象照</li>
+        <li class="reveal" data-i18n-html="s6.l4" data-zh="<strong>文章AI助手</strong> — 微信文章智能解析与摘要提取，自动化生成文章简介" data-en="<strong>Article AI assistant</strong> &mdash; parses WeChat articles and extracts summaries to auto-generate intros"><strong>文章AI助手</strong> — 微信文章智能解析与摘要提取，自动化生成文章简介</li>
       </ul>
     </div>
     <span class="slide-counter">05 / 12</span>
@@ -2191,21 +2275,21 @@
        SLIDE 7: 未来一手 — 进销存
        =========================================== -->
   <section class="slide slide-light" data-slide="6">
-    <span class="slide-label reveal"><i class="fa-solid fa-building"></i> 工作经历 · 2</span>
+    <span class="slide-label reveal"><i class="fa-solid fa-building"></i> <span data-i18n="s7.label">工作经历 · 2</span></span>
     <span class="section-number">05</span>
     <div class="slide-content" style="padding-top: clamp(2.8rem, 5vw, 4.5rem);">
       <div class="exp-header reveal">
         <div>
-          <div class="exp-company"><i class="fa-solid fa-store"></i> 广州未来一手网络运营有限公司</div>
-          <div class="exp-role"><i class="fa-solid fa-id-badge"></i> 产品经理 · 创新业务部 · 广州</div>
+          <div class="exp-company"><i class="fa-solid fa-store"></i> <span data-i18n="s7.company">广州未来一手网络运营有限公司</span></div>
+          <div class="exp-role"><i class="fa-solid fa-id-badge"></i> <span data-i18n="s7.role">产品经理 · 创新业务部 · 广州</span></div>
         </div>
         <div class="exp-period"><i class="fa-regular fa-calendar"></i> 2024.06 - 2024.10</div>
       </div>
-      <p class="exp-desc reveal">负责女装门店商家进销存产品搭建，包括进销存APP、小程序、商家后台，服务全国服装门店<span class="num">500+</span>。</p>
+      <p class="exp-desc reveal" data-i18n-html="s7.desc" data-zh="负责女装门店商家进销存产品搭建，包括进销存APP、小程序、商家后台，服务全国服装门店<span class='num'>500+</span>。" data-en="Built the inventory management suite for womenswear retailers &mdash; app, mini program and merchant back office &mdash; serving <span class='num'>500+</span> apparel stores nationwide.">负责女装门店商家进销存产品搭建，包括进销存APP、小程序、商家后台，服务全国服装门店<span class="num">500+</span>。</p>
       <ul class="exp-list">
-        <li class="reveal"><strong>产品框架搭建</strong> — 负责进销存APP产品架构，推进微信H5电子小票、云相册小程序</li>
-        <li class="reveal"><strong>竞品调研分析</strong> — 跟踪竞品动态，一对一商家访谈判断功能优先级</li>
-        <li class="reveal"><strong>AI数据分析</strong> — AI分析上游小票精准度，低成本实现识别精准度提高 <span class="num">30%</span></li>
+        <li class="reveal" data-i18n-html="s7.l1" data-zh="<strong>产品框架搭建</strong> — 负责进销存APP产品架构，推进微信H5电子小票、云相册小程序" data-en="<strong>Product architecture</strong> &mdash; owned the inventory app structure and delivered WeChat H5 e-receipts and a cloud album mini program"><strong>产品框架搭建</strong> — 负责进销存APP产品架构，推进微信H5电子小票、云相册小程序</li>
+        <li class="reveal" data-i18n-html="s7.l2" data-zh="<strong>竞品调研分析</strong> — 跟踪竞品动态，一对一商家访谈判断功能优先级" data-en="<strong>Competitive research</strong> &mdash; tracked competitor moves and ran one-on-one merchant interviews to prioritise features"><strong>竞品调研分析</strong> — 跟踪竞品动态，一对一商家访谈判断功能优先级</li>
+        <li class="reveal" data-i18n-html="s7.l3" data-zh="<strong>AI数据分析</strong> — AI分析上游小票精准度，低成本实现识别精准度提高 <span class='num'>30%</span>" data-en="<strong>AI data analysis</strong> &mdash; used AI to audit upstream receipt accuracy, raising recognition accuracy by <span class='num'>30%</span> at low cost"><strong>AI数据分析</strong> — AI分析上游小票精准度，低成本实现识别精准度提高 <span class="num">30%</span></li>
       </ul>
     </div>
     <span class="slide-counter">06 / 12</span>
@@ -2216,22 +2300,22 @@
        =========================================== -->
   <section class="slide slide-dark" data-slide="7">
     <div class="grid-pattern"></div>
-    <span class="slide-label reveal"><i class="fa-solid fa-building"></i> 工作经历 · 3</span>
+    <span class="slide-label reveal"><i class="fa-solid fa-building"></i> <span data-i18n="s8.label">工作经历 · 3</span></span>
     <span class="section-number">06</span>
     <div class="slide-content" style="padding-top: clamp(2.8rem, 5vw, 4.5rem);">
       <div class="exp-header reveal">
         <div>
-          <div class="exp-company"><i class="fa-solid fa-cart-shopping"></i> 广州爱范儿科技股份有限公司</div>
-          <div class="exp-role"><i class="fa-solid fa-id-badge"></i> 产品经理 · 产品技术部 · 广州</div>
+          <div class="exp-company"><i class="fa-solid fa-cart-shopping"></i> <span data-i18n="s8.company">广州爱范儿科技股份有限公司</span></div>
+          <div class="exp-role"><i class="fa-solid fa-id-badge"></i> <span data-i18n="s8.role">产品经理 · 产品技术部 · 广州</span></div>
         </div>
         <div class="exp-period"><i class="fa-regular fa-calendar"></i> 2021.07 - 2024.05</div>
       </div>
-      <p class="exp-desc reveal">负责活动小程序、购物小程序、销售后台和商务后台，服务全省<span class="num">3000万</span>工会会员。默林售票小程序上线<span class="num">2个月</span>破百万销售额。</p>
+      <p class="exp-desc reveal" data-i18n-html="s8.desc" data-zh="负责活动小程序、购物小程序、销售后台和商务后台，服务全省<span class='num'>3000万</span>工会会员。默林售票小程序上线<span class='num'>2个月</span>破百万销售额。" data-en="Owned campaign and shopping mini programs plus sales and business back offices, serving <span class='num'>30M</span> union members province-wide. The Merlin ticketing mini program passed &yen;1M in sales within <span class='num'>2 months</span> of launch.">负责活动小程序、购物小程序、销售后台和商务后台，服务全省<span class="num">3000万</span>工会会员。默林售票小程序上线<span class="num">2个月</span>破百万销售额。</p>
       <ul class="exp-list">
-        <li class="reveal">深入市场调研与用户需求分析，产出PRD、竞品分析、用户调研文档</li>
-        <li class="reveal">利用甘特图、Jira等项目管理工具，与设计、开发、运营跨部门协作</li>
-        <li class="reveal">利用We分析、GA等埋点工具分析用户数据，不断改进产品功能和界面</li>
-        <li class="reveal">灰度发布、AB测试，多渠道收集反馈并及时调整产品策略</li>
+        <li class="reveal" data-i18n="s8.l1">深入市场调研与用户需求分析，产出PRD、竞品分析、用户调研文档</li>
+        <li class="reveal" data-i18n="s8.l2">利用甘特图、Jira等项目管理工具，与设计、开发、运营跨部门协作</li>
+        <li class="reveal" data-i18n="s8.l3">利用We分析、GA等埋点工具分析用户数据，不断改进产品功能和界面</li>
+        <li class="reveal" data-i18n="s8.l4">灰度发布、AB测试，多渠道收集反馈并及时调整产品策略</li>
       </ul>
     </div>
     <span class="slide-counter">07 / 12</span>
@@ -2241,44 +2325,44 @@
        SLIDE 9: 爱范儿 — 业绩
        =========================================== -->
   <section class="slide slide-light" data-slide="8">
-    <span class="slide-label reveal"><i class="fa-solid fa-trophy"></i> 工作业绩 · 爱范儿</span>
+    <span class="slide-label reveal"><i class="fa-solid fa-trophy"></i> <span data-i18n="s9.label">工作业绩 · 爱范儿</span></span>
     <span class="section-number">07</span>
     <div class="slide-content" style="padding-top: clamp(2.8rem, 5vw, 4.5rem);">
       <div class="achievement-grid">
         <div class="achievement-item achievement-featured reveal">
           <i class="fa-solid fa-sack-dollar"></i>
           <div class="achievement-copy">
-            <span class="achievement-kicker">2023 年商城平台</span>
+            <span class="achievement-kicker" data-i18n="s9.k1">2023 年商城平台</span>
             <strong class="achievement-value">5000W+</strong>
-            <p>年度流水</p>
+            <p data-i18n="s9.p1">年度流水</p>
           </div>
         </div>
         <div class="achievement-item reveal">
           <i class="fa-solid fa-bolt"></i>
           <div class="achievement-copy">
             <strong class="achievement-value">300%</strong>
-            <p>集采客户一键开票提效</p>
+            <p data-i18n="s9.p2">集采客户一键开票提效</p>
           </div>
         </div>
         <div class="achievement-item reveal">
           <i class="fa-solid fa-crown"></i>
           <div class="achievement-copy">
             <strong class="achievement-value">300%</strong>
-            <p>VIP权益功能带动订单业务量增长</p>
+            <p data-i18n="s9.p3">VIP权益功能带动订单业务量增长</p>
           </div>
         </div>
         <div class="achievement-item reveal">
           <i class="fa-solid fa-users"></i>
           <div class="achievement-copy">
             <strong class="achievement-value">10W+</strong>
-            <p>积分体系打通多平台，活动期间稳定有效日活</p>
+            <p data-i18n="s9.p4">积分体系打通多平台，活动期间稳定有效日活</p>
           </div>
         </div>
         <div class="achievement-item reveal">
           <i class="fa-solid fa-ticket"></i>
           <div class="achievement-copy">
-            <strong class="achievement-value">2个月</strong>
-            <p>默林售票小程序销售额破百万</p>
+            <strong class="achievement-value" data-i18n="s9.v5">2个月</strong>
+            <p data-i18n="s9.p5">默林售票小程序销售额破百万</p>
           </div>
         </div>
       </div>
@@ -2291,22 +2375,22 @@
        =========================================== -->
   <section class="slide slide-dark" data-slide="9">
     <div class="grid-pattern"></div>
-    <span class="slide-label reveal"><i class="fa-solid fa-building"></i> 工作经历 · 4</span>
+    <span class="slide-label reveal"><i class="fa-solid fa-building"></i> <span data-i18n="s10.label">工作经历 · 4</span></span>
     <span class="section-number">08</span>
     <div class="slide-content" style="padding-top: clamp(2.8rem, 5vw, 4.5rem);">
       <div class="exp-header reveal">
         <div>
-          <div class="exp-company"><i class="fa-solid fa-city"></i> 碧桂园 · 数字化中心</div>
-          <div class="exp-role"><i class="fa-solid fa-id-badge"></i> 产品经理 · 品牌营销中心 · 佛山</div>
+          <div class="exp-company"><i class="fa-solid fa-city"></i> <span data-i18n="s10.company">碧桂园 · 数字化中心</span></div>
+          <div class="exp-role"><i class="fa-solid fa-id-badge"></i> <span data-i18n="s10.role">产品经理 · 品牌营销中心 · 佛山</span></div>
         </div>
         <div class="exp-period"><i class="fa-regular fa-calendar"></i> 2020.07 - 2021.07</div>
       </div>
-      <p class="exp-desc reveal">负责凤凰云小程序、销售后台系统和自助销售机，服务<span class="num">300万</span>用户，覆盖看房、购房、收楼等房地产全流程。</p>
+      <p class="exp-desc reveal" data-i18n-html="s10.desc" data-zh="负责凤凰云小程序、销售后台系统和自助销售机，服务<span class='num'>300万</span>用户，覆盖看房、购房、收楼等房地产全流程。" data-en="Owned the Phoenix Cloud mini program, sales back office and self-service kiosks, serving <span class='num'>3M</span> users across the full property journey from viewing to purchase and handover.">负责凤凰云小程序、销售后台系统和自助销售机，服务<span class="num">300万</span>用户，覆盖看房、购房、收楼等房地产全流程。</p>
       <ul class="exp-list">
-        <li class="reveal">制定凤凰云小程序产品策略与功能路线图，推动新功能开发</li>
-        <li class="reveal">行业报告分析、市场调研、用户调研及竞品分析</li>
-        <li class="reveal">业务场景工具化，每天减少销售顾问 <span class="num">2000+</span> 工时</li>
-        <li class="reveal">房产秒杀支持 <span class="num">2000+</span> 并发抢购，节省营销费用 <span class="num">200W+</span></li>
+        <li class="reveal" data-i18n="s10.l1">制定凤凰云小程序产品策略与功能路线图，推动新功能开发</li>
+        <li class="reveal" data-i18n="s10.l2">行业报告分析、市场调研、用户调研及竞品分析</li>
+        <li class="reveal" data-i18n-html="s10.l3" data-zh="业务场景工具化，每天减少销售顾问 <span class='num'>2000+</span> 工时" data-en="Turned manual workflows into tooling, saving sales consultants <span class='num'>2,000+</span> work hours daily">业务场景工具化，每天减少销售顾问 <span class="num">2000+</span> 工时</li>
+        <li class="reveal" data-i18n-html="s10.l4" data-zh="房产秒杀支持 <span class='num'>2000+</span> 并发抢购，节省营销费用 <span class='num'>200W+</span>" data-en="Property flash sales handled <span class='num'>2,000+</span> concurrent buyers, saving <span class='num'>¥2M+</span> in marketing spend">房产秒杀支持 <span class="num">2000+</span> 并发抢购，节省营销费用 <span class="num">200W+</span></li>
       </ul>
     </div>
     <span class="slide-counter">09 / 12</span>
@@ -2316,18 +2400,18 @@
        SLIDE 11: 教育与技能
        =========================================== -->
   <section class="slide slide-light" data-slide="10">
-    <span class="slide-label reveal"><i class="fa-solid fa-graduation-cap"></i> 教育 & 技能</span>
+    <span class="slide-label reveal"><i class="fa-solid fa-graduation-cap"></i> <span data-i18n="s11.label">教育 & 技能</span></span>
     <span class="section-number">09</span>
     <div class="slide-content" style="padding-top: clamp(2.8rem, 5vw, 4.5rem);">
       <div class="edu-card reveal" style="margin-bottom: clamp(0.8rem, 2vw, 1.5rem);">
         <div class="edu-icon"><i class="fa-solid fa-graduation-cap"></i></div>
         <div>
-          <div class="edu-school">沈阳建筑大学</div>
-          <div class="edu-detail">机械设计及其自动化 · 本科 · 2016 - 2020</div>
+          <div class="edu-school" data-i18n="s11.school">沈阳建筑大学</div>
+          <div class="edu-detail" data-i18n="s11.detail">机械设计及其自动化 · 本科 · 2016 - 2020</div>
         </div>
       </div>
       <div class="skill-group reveal">
-        <div class="skill-group-title"><i class="fa-solid fa-wrench"></i> AI 与产品工具</div>
+        <div class="skill-group-title"><i class="fa-solid fa-wrench"></i> <span data-i18n="s11.g1">AI 与产品工具</span></div>
         <div class="skill-tags">
           <span class="skill-tag highlight-tag"><i class="fa-solid fa-terminal"></i> Codex</span>
           <span class="skill-tag highlight-tag"><i class="fa-solid fa-code"></i> Claude Code</span>
@@ -2337,21 +2421,21 @@
           <span class="skill-tag"><i class="fa-brands fa-python"></i> Python</span>
           <span class="skill-tag"><i class="fa-solid fa-image"></i> Photoshop</span>
           <span class="skill-tag"><i class="fa-brands fa-jira"></i> Jira</span>
-          <span class="skill-tag"><i class="fa-solid fa-chart-bar"></i> We分析 / GA</span>
+          <span class="skill-tag"><i class="fa-solid fa-chart-bar"></i> <span data-i18n="s11.t1">We分析 / GA</span></span>
         </div>
       </div>
       <div class="skill-group reveal">
-        <div class="skill-group-title"><i class="fa-solid fa-language"></i> 语言能力</div>
+        <div class="skill-group-title"><i class="fa-solid fa-language"></i> <span data-i18n="s11.g2">语言能力</span></div>
         <div class="skill-tags">
-          <span class="skill-tag"><i class="fa-solid fa-earth-americas"></i> 英语 CET-6</span>
-          <span class="skill-tag"><i class="fa-solid fa-comments"></i> 粤语（熟练）</span>
+          <span class="skill-tag"><i class="fa-solid fa-earth-americas"></i> <span data-i18n="s11.t2">英语 CET-6</span></span>
+          <span class="skill-tag"><i class="fa-solid fa-comments"></i> <span data-i18n="s11.t3">粤语（熟练）</span></span>
         </div>
       </div>
       <div class="skill-group reveal">
-        <div class="skill-group-title"><i class="fa-solid fa-certificate"></i> 证书</div>
+        <div class="skill-group-title"><i class="fa-solid fa-certificate"></i> <span data-i18n="s11.g3">证书</span></div>
         <div class="skill-tags">
-          <span class="skill-tag"><i class="fa-solid fa-car"></i> 驾驶证</span>
-          <span class="skill-tag"><i class="fa-solid fa-dumbbell"></i> CPT健身教练证书</span>
+          <span class="skill-tag"><i class="fa-solid fa-car"></i> <span data-i18n="s11.t4">驾驶证</span></span>
+          <span class="skill-tag"><i class="fa-solid fa-dumbbell"></i> <span data-i18n="s11.t5">CPT健身教练证书</span></span>
         </div>
       </div>
     </div>
@@ -2362,8 +2446,8 @@
        SLIDE 12: CLOSING
        =========================================== -->
   <section class="slide slide-closing" data-slide="11">
-    <div class="closing-thanks reveal">Thank You</div>
-    <div class="closing-name reveal">梁声文</div>
+    <div class="closing-thanks reveal" data-i18n="s12.thanks">Thank You</div>
+    <div class="closing-name reveal" data-i18n="name">梁声文</div>
     <div class="closing-contact reveal">
       <span><i class="fa-solid fa-phone"></i> 18007770837</span>
       <span><i class="fa-solid fa-envelope"></i> lleisdbd@qq.com</span>
@@ -2475,6 +2559,191 @@
     }
 
     new SlidePresentation();
+
+    /* ===========================================
+       I18N: 中英文切换
+       词典只存英文；中文一律以 DOM 里已有的文字为准（单一事实来源）。
+       带 data-zh/data-en 的节点是富文本（含高亮 <span>），走 innerHTML。
+       =========================================== */
+    const I18N_EN = {
+      name: 'Liang Shengwen',
+      role: 'Product Manager · AI Delivery (FDE)',
+      subRole: 'Forward Deployed Product Manager',
+
+      's2.label': 'CAREER PATH',
+      's2.t1': 'Shenyang Jianzhu University<br>Mechanical Design &amp; Automation',
+      's2.d1': 'Bachelor · 4 yrs',
+      's2.t2': 'Country Garden · Digital Center<br>Brand Marketing Products',
+      's2.d2': '1 yr',
+      's2.t3': 'ifanr Technology<br>E-commerce / Ticketing',
+      's2.d3': '3 yrs',
+      's2.t4': 'Weilai Yishou<br>Inventory Management',
+      's2.d4': '5 mos',
+      's2.t5': 'Shangxiehui<br>AI Digital Secretary',
+      's2.d5': 'Present',
+      's2.st1': 'Years in product',
+      's2.st2': 'Industries',
+      's2.st3': 'Current focus',
+
+      's3.label': 'SUMMARY',
+      's3.c3': 'Trade-off thinking: tiered access by role usage intensity to control spend while keeping AI available to everyone, and resolved business outages caused by official account quota limits.',
+      's3.c4': 'Methodology: turned the enterprise AI delivery process into a reusable SOP, with a full view from single-client delivery to repeatable capability.',
+
+      's4.label': 'PERSONAL VENTURE / VIBE CODING',
+      's4.meta': '2026.07 - Present · Product / Design / Development / Deployment (solo)',
+      's4.desc': 'For OTC options practitioners: automatically recognises multiple suppliers’ quotation screenshots, reconciles and merges them, and generates standard quotation images. Also supports opening and settlement statements.',
+      's4.m1': 'Paying clients',
+      's4.m2': 'Annual commercial plan',
+      's4.m3': 'Web + Mini program',
+      's4.k1': 'Independently ran requirement validation, product design, full-stack development, testing, deployment and ongoing iteration',
+      's4.k2': 'Built via Vibe Coding with Codex and Claude Code; multimodal models parse unstructured quotation images',
+      's4.k3': 'Multi-image recognition, manual review, supplier quote merging, bulk markup and standard PNG export',
+      's4.k4': 'End-to-end flow covering WeChat image picking, task history, quotations, opening and settlement statements',
+
+      's5.label': 'FDE PROJECT / ENTERPRISE AI ENABLEMENT',
+      's5.meta': 'Jinchun Industrial · FDE delivery project (lead)',
+      's5.desc': 'Led enterprise AI engineering enablement as an FDE: started by researching each role’s real AI use cases and usage intensity, then designed a tiered access plan and drove company-wide adoption, finally distilling the delivery process into a reusable SOP. High-frequency roles use official accounts; low-frequency roles call through an enterprise relay on demand — avoiding idle paid seats while keeping AI available to everyone and controlling total spend.',
+      's5.ml1': 'Staff onboarded to Codex',
+      's5.ml2': 'Project fee per client',
+      's5.mv3': 'SOP created',
+      's5.ml3': 'Reusable delivery process',
+      's5.w1t': 'Client discovery',
+      's5.w1d': 'Interviewed staff across roles to map real AI use cases and frequency differences, establishing the basis for tiered access.',
+      's5.w2t': 'Tiered access design',
+      's5.w2d': 'High-frequency roles use official accounts; low-frequency roles call via an enterprise relay on demand — balancing availability with cost control.',
+      's5.w3t': 'Company-wide rollout',
+      's5.w3d': 'Configured environments, guided installation and troubleshot issues for 50+ staff, embedding Codex into daily workflows.',
+      's5.w4t': 'Iteration & SOP',
+      's5.w4d': 'Kept following up on usage issues after delivery, iterating the solution and turning the rollout into a reusable SOP to support repeat delivery.',
+      's5.f1': 'Company-wide dev environment',
+      's5.f2': 'Unified Codex configuration',
+      's5.f3': 'Official accounts',
+      's5.f3s': 'high-frequency roles',
+      's5.f4': 'Enterprise relay',
+      's5.f4s': 'low-frequency roles',
+      's5.f5': 'Available to all · On-demand · Cost controlled',
+
+      's6.label': 'EXPERIENCE · 1',
+      's6.company': 'Guangzhou Shangxiehui Network Technology Co., Ltd.',
+      's6.role': 'Product Manager · Product & R&D · Guangzhou',
+      's6.period': '2025.12 - Present',
+      's7.label': 'EXPERIENCE · 2',
+      's7.company': 'Guangzhou Weilai Yishou Network Operations Co., Ltd.',
+      's7.role': 'Product Manager · Innovation Business · Guangzhou',
+      's8.label': 'EXPERIENCE · 3',
+      's8.company': 'Guangzhou ifanr Technology Co., Ltd.',
+      's8.role': 'Product Manager · Product & Technology · Guangzhou',
+      's8.l1': 'Ran market research and user needs analysis, producing PRDs, competitor analyses and user research docs',
+      's8.l2': 'Coordinated design, engineering and operations using Gantt charts, Jira and other project tools',
+      's8.l3': 'Analysed user data with We Analytics and GA to continuously improve product features and UI',
+      's8.l4': 'Ran staged rollouts and A/B tests, gathering feedback across channels to adjust product strategy quickly',
+
+      's9.label': 'ACHIEVEMENTS · ifanr',
+      's9.k1': '2023 Mall platform',
+      's9.p1': 'Annual GMV',
+      's9.p2': 'Faster one-click invoicing for bulk buyers',
+      's9.p3': 'VIP benefits drove order volume growth',
+      's9.p4': 'Loyalty points unified across platforms; stable DAU during campaigns',
+      's9.v5': '2 mos',
+      's9.p5': 'Merlin ticketing mini program passed ¥1M in sales',
+
+      's10.label': 'EXPERIENCE · 4',
+      's10.company': 'Country Garden · Digital Center',
+      's10.role': 'Product Manager · Brand Marketing Center · Foshan',
+      's10.l1': 'Set product strategy and feature roadmap for the Phoenix Cloud mini program, driving new feature development',
+      's10.l2': 'Industry report analysis, market research, user research and competitor analysis',
+
+      's11.label': 'EDUCATION & SKILLS',
+      's11.school': 'Shenyang Jianzhu University',
+      's11.detail': 'Mechanical Design & Automation · Bachelor · 2016 - 2020',
+      's11.g1': 'AI & Product Tools',
+      's11.g2': 'Languages',
+      's11.g3': 'Certificates',
+      's11.t1': 'We Analytics / GA',
+      's11.t2': 'English CET-6',
+      's11.t3': 'Cantonese (fluent)',
+      's11.t4': "Driver's licence",
+      's11.t5': 'CPT Fitness Coach Certificate',
+
+      's12.thanks': 'Thank You'
+    };
+
+    const I18N = (() => {
+      const nodes = [...document.querySelectorAll('[data-i18n]')];
+      // 记录原始中文，切回中文时还原
+      const zh = new Map();
+      nodes.forEach(el => zh.set(el, el.innerHTML));
+
+      const richNodes = [...document.querySelectorAll('[data-i18n-html]')];
+      richNodes.forEach(el => zh.set(el, el.innerHTML));
+
+      let lang = null;
+
+      // 幂等：每次都按目标语言重新渲染，不做提前返回（提前返回会让首屏语言错乱）
+      function apply(next) {
+        lang = next;
+        document.documentElement.lang = next === 'zh' ? 'zh-CN' : 'en';
+
+        nodes.forEach(el => {
+          const k = el.dataset.i18n;
+          if (next === 'en') {
+            const v = I18N_EN[k];
+            // 缺词条时保留中文，而不是渲染成空白
+            if (typeof v === 'string') el.innerHTML = v;
+            else console.warn('[i18n] missing key:', k);
+          } else {
+            el.innerHTML = zh.get(el);
+          }
+        });
+
+        richNodes.forEach(el => {
+          el.innerHTML = next === 'en' ? el.dataset.en : el.dataset.zh;
+        });
+
+        document.querySelectorAll('[data-lang-option]').forEach(o => {
+          o.classList.toggle('is-active', o.dataset.langOption === next);
+        });
+
+        try { localStorage.setItem('resume-lang', next); } catch (e) {}
+      }
+
+      function init() {
+        let saved = null;
+        try { saved = localStorage.getItem('resume-lang'); } catch (e) {}
+        if (saved !== 'zh' && saved !== 'en') {
+          saved = (navigator.language || '').toLowerCase().startsWith('zh') ? 'zh' : 'en';
+        }
+        apply(saved);
+      }
+
+      document.getElementById('langToggle').addEventListener('click', () => {
+        apply(lang === 'zh' ? 'en' : 'zh');
+      });
+
+      init();
+      return { apply: (l) => apply(l), get lang() { return lang; } };
+    })();
+
+    /* 语言按钮在浅色页面上要换深色样式，跟随当前页切换 */
+    (() => {
+      const lightSlides = new Set(
+        [...document.querySelectorAll('.slide')]
+          .filter(s => s.classList.contains('slide-light'))
+          .map(s => s.dataset.slide)
+      );
+      const sync = () => {
+        const cur = document.querySelector('.nav-dot.active');
+        const idx = cur ? [...cur.parentNode.children].indexOf(cur) : 0;
+        document.body.classList.toggle(
+          'on-light-slide',
+          lightSlides.has(String(idx))
+        );
+      };
+      new MutationObserver(sync).observe(document.getElementById('navDots'), {
+        subtree: true, attributes: true, attributeFilter: ['class']
+      });
+      sync();
+    })();
   </script>
 </body>
 </html>
