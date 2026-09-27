@@ -19,21 +19,24 @@
          =========================================== */
     :root {
       /* Colors */
-      --bg-dark: #0a0a0a;
-      --bg-white: #faf9f7;
-      --bg-card: #ffffff;
+      --bg-dark: #101014;
+      --bg-white: #f6f3ec;
+      --bg-card: #fffefb;
       --accent-blue: #4361ee;
       --accent-blue-light: rgba(67, 97, 238, 0.08);
       --accent-blue-glow: rgba(67, 97, 238, 0.25);
       --accent-coral: #ff6b6b;
       --accent-gold: #f0c040;
       --accent-mint: #2dd4a8;
-      --text-dark: #0a0a0a;
+      --text-dark: #101014;
       --text-light: #ffffff;
       --text-muted: #6b7280;
       --text-secondary: #374151;
       --border-light: rgba(255, 255, 255, 0.08);
       --border-dark: rgba(0, 0, 0, 0.06);
+
+      /* 纸张噪点纹理：内联 SVG，不额外请求文件，任意缩放都不糊 */
+      --paper-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");
 
       /* Typography */
       --font-display: "Manrope", "Noto Sans SC", sans-serif;
@@ -439,6 +442,43 @@
       text-transform: uppercase;
     }
 
+    /* --- PAPER TEXTURE ---
+       所有页面统一铺一层极淡纸张颗粒，让底色不再是死板的纯黑/纯白。
+       放在 z-index:0，内容层都在它上面。 */
+    .slide-light::after,
+    .slide-dark::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: var(--paper-noise);
+      background-size: 200px 200px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .slide-light::after {
+      opacity: 0.5;
+      mix-blend-mode: multiply;
+    }
+
+    .slide-dark::after {
+      opacity: 0.26;
+      mix-blend-mode: screen;
+    }
+
+
+    /* 封面/尾页的伪元素已被占用，这两页用独立图层铺同样的颗粒 */
+    .paper-grain {
+      position: absolute;
+      inset: 0;
+      background-image: var(--paper-noise);
+      background-size: 200px 200px;
+      opacity: 0.26;
+      mix-blend-mode: screen;
+      pointer-events: none;
+      z-index: 0;
+    }
+
     /* --- LIGHT SLIDES --- */
     .slide-light {
       background: var(--bg-white);
@@ -449,6 +489,11 @@
     .slide-dark {
       background: var(--bg-dark);
       color: var(--text-light);
+      background-image: radial-gradient(
+        120% 90% at 15% 0%,
+        rgba(67, 97, 238, 0.10) 0%,
+        rgba(67, 97, 238, 0) 60%
+      );
     }
 
     /* --- SECTION NUMBER --- */
@@ -941,6 +986,50 @@
 
       .fde-workstream {
         padding-top: 0.45rem;
+      }
+    }
+
+    /* 宽而矮的屏幕（如 1024x600）：仍走两栏布局，FDE 页内容会溢出 51px
+       （此问题在改动背景之前就存在）。收紧留白与字号，压回一屏。 */
+    @media (max-height: 640px) and (min-width: 701px) {
+      .fde-showcase {
+        gap: clamp(1rem, 3vw, 2rem);
+      }
+
+      .fde-description {
+        font-size: clamp(0.72rem, 1.05vw, 0.86rem);
+        line-height: 1.45;
+      }
+
+      .fde-metrics {
+        margin-top: 0.6rem;
+        padding: 0.5rem 0;
+      }
+
+      .fde-metric-value {
+        font-size: clamp(0.95rem, 2vw, 1.3rem);
+      }
+
+      .fde-metric-label {
+        font-size: clamp(0.6rem, 1vw, 0.72rem);
+      }
+
+      .fde-workstreams {
+        gap: 0.45rem;
+        margin-top: 0.6rem;
+      }
+
+      .fde-workstream {
+        padding-top: 0.35rem;
+      }
+
+      .fde-workstream-title {
+        font-size: clamp(0.72rem, 1.1vw, 0.85rem);
+      }
+
+      .fde-workstream p {
+        font-size: clamp(0.64rem, 1vw, 0.76rem);
+        line-height: 1.4;
       }
     }
 
@@ -1540,16 +1629,6 @@
       background: linear-gradient(90deg, var(--accent-blue), var(--accent-coral));
     }
 
-    .grid-pattern {
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-      background-size: 60px 60px;
-      pointer-events: none;
-    }
-
     .slide-counter {
       position: absolute;
       bottom: clamp(0.5rem, 1.5vw, 1.2rem);
@@ -2094,6 +2173,7 @@
        SLIDE 1: TITLE
        =========================================== -->
   <section class="slide slide-title" data-slide="0">
+    <div class="paper-grain" aria-hidden="true"></div>
     <div class="title-left">
       <h1 class="title-name reveal" data-i18n="name">梁声文</h1>
       <p class="title-role reveal"><i class="fa-solid fa-microchip"></i> <span data-i18n="role">产品经理 · AI 交付方向（FDE）</span></p>
@@ -2117,7 +2197,6 @@
        SLIDE 2: 职业时间轴
        =========================================== -->
   <section class="slide slide-dark" data-slide="1">
-    <div class="grid-pattern"></div>
     <span class="slide-label reveal"><i class="fa-solid fa-timeline"></i> <span data-i18n="s2.label">职业历程 / CAREER PATH</span></span>
     <span class="section-number">00</span>
     <div class="slide-content" style="padding-top: clamp(2.8rem, 5vw, 4.5rem);">
@@ -2206,7 +2285,6 @@
        SLIDE 4: 个人商业化项目 — AI报价助手
        =========================================== -->
   <section class="slide slide-dark" data-slide="3">
-    <div class="grid-pattern"></div>
     <span class="slide-label reveal"><i class="fa-solid fa-code"></i> <span data-i18n="s4.label">个人商业化项目 / VIBE CODING</span></span>
     <span class="section-number">02</span>
     <div class="slide-content" style="padding-top: clamp(2.8rem, 5vw, 4.5rem);">
@@ -2312,7 +2390,6 @@
        SLIDE 6: 商协慧 — AI数字秘书
        =========================================== -->
   <section class="slide slide-dark" data-slide="5">
-    <div class="grid-pattern"></div>
     <span class="slide-label reveal"><i class="fa-solid fa-building"></i> <span data-i18n="s6.label">工作经历 · 1</span></span>
     <span class="section-number">04</span>
     <div class="slide-content" style="padding-top: clamp(2.8rem, 5vw, 4.5rem);">
@@ -2362,7 +2439,6 @@
        SLIDE 8: 爱范儿 — 产品设计
        =========================================== -->
   <section class="slide slide-dark" data-slide="7">
-    <div class="grid-pattern"></div>
     <span class="slide-label reveal"><i class="fa-solid fa-building"></i> <span data-i18n="s8.label">工作经历 · 3</span></span>
     <span class="section-number">06</span>
     <div class="slide-content" style="padding-top: clamp(2.8rem, 5vw, 4.5rem);">
@@ -2437,7 +2513,6 @@
        SLIDE 10: 碧桂园
        =========================================== -->
   <section class="slide slide-dark" data-slide="9">
-    <div class="grid-pattern"></div>
     <span class="slide-label reveal"><i class="fa-solid fa-building"></i> <span data-i18n="s10.label">工作经历 · 4</span></span>
     <span class="section-number">08</span>
     <div class="slide-content" style="padding-top: clamp(2.8rem, 5vw, 4.5rem);">
@@ -2509,6 +2584,7 @@
        SLIDE 12: CLOSING
        =========================================== -->
   <section class="slide slide-closing" data-slide="11">
+    <div class="paper-grain" aria-hidden="true"></div>
     <picture>
       <source srcset="assets/cat-hero.webp" type="image/webp">
       <img class="mascot mascot-thanks" src="assets/cat-hero.png"
