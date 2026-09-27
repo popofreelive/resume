@@ -1147,10 +1147,12 @@
     .achievement-grid {
       display: grid;
       grid-template-columns: minmax(0, 1.25fr) repeat(2, minmax(0, 1fr));
-      grid-template-rows: repeat(2, minmax(0, 1fr));
+      /* 行高按内容走。原来用 1fr，两行会被拉满整屏，左侧大卡（跨两行）
+         因此留下大片死白。改为 auto 后卡片贴合内容。 */
+      grid-template-rows: repeat(2, auto);
       gap: clamp(0.75rem, 1.4vw, 1.25rem);
       width: 100%;
-      min-height: min(56vh, 460px);
+      align-content: center;
     }
 
     .achievement-item {
@@ -1184,6 +1186,14 @@
       flex-direction: column;
       gap: clamp(0.2rem, 0.5vw, 0.4rem);
       min-width: 0;
+      /* flex 子项默认 min-width:auto，会撑到「5000W+」的固有宽度而不肯收缩，
+         导致宽屏下溢出色块。显式设 0 才允许跟着容器收窄。 */
+      width: 100%;
+    }
+
+    .achievement-copy > * {
+      min-width: 0;
+      max-width: 100%;
     }
 
     .achievement-value {
@@ -1222,7 +1232,10 @@
     }
 
     .achievement-featured .achievement-value {
-      font-size: clamp(3rem, 6vw, 5.4rem);
+      /* 原来用 6vw：屏幕越宽字越大，1920 下涨到 86px，
+         「5000W+」固有宽度 360px 撑破 257px 的卡片。
+         上限压到 3.6rem（57.6px）后，1920 下实测宽度 240px < 257px，才真正放得下。 */
+      font-size: clamp(2.4rem, 3.4vw, 3.6rem);
     }
 
     .achievement-kicker {
