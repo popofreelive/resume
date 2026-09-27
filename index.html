@@ -1458,7 +1458,13 @@
     .closing-thanks {
       font-family: var(--font-accent);
       font-style: italic;
-      font-size: clamp(2.2rem, 6.5vw, 5.5rem);
+      /* 原来是给「Thank You」两个词用的 6.5vw/88px。
+         换成整句后同一字号会占满整屏、压掉姓名和联系方式。
+         降到 3.6rem 并限制行宽，让它回到「一句话」的分量。 */
+      font-size: clamp(1.35rem, 2.4vw, 2.4rem);
+      line-height: 1.5;
+      max-width: min(90%, 22em);
+      text-wrap: balance;
       position: relative;
       z-index: 2;
     }
@@ -2164,7 +2170,10 @@
       }
 
       .closing-thanks {
-        font-size: 2.7rem;
+        /* 手机上是整句换行，2.7rem 会占掉大半屏，压到 1.5rem */
+        font-size: 1.5rem;
+        max-width: 92%;
+        line-height: 1.45;
       }
 
       .closing-name {
@@ -2620,7 +2629,7 @@
       <img class="mascot mascot-thanks" src="assets/cat-hero.png"
            alt="手绘蜡笔风格的橘白猫，正在秀手臂肌肉" width="900" height="900">
     </picture>
-    <div class="closing-thanks reveal" data-i18n="s12.thanks">Thank You</div>
+    <div class="closing-thanks reveal" data-i18n="s12.thanks">感谢观看 · 期待与贵司同行</div>
     <div class="closing-name reveal" data-i18n="name">梁声文</div>
     <div class="closing-contact reveal">
       <span><i class="fa-solid fa-phone"></i> 18007770837</span>
@@ -2839,7 +2848,7 @@
       's11.t4': "Driver's licence",
       's11.t5': 'CPT Fitness Coach Certificate',
 
-      's12.thanks': 'Thank You'
+      's12.thanks': "Thanks for watching. Let's build something together."
     };
 
     const I18N = (() => {
